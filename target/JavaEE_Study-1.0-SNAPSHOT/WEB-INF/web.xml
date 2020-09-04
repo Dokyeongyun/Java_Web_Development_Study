@@ -26,4 +26,34 @@
     </servlet-mapping>
     -->
 
+    <!--컨텍스트 초기화 매개변수 정의-->
+    <context-param>
+        <param-name>contextParameter1</param-name>
+        <param-value>context_1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextParameter2</param-name>
+        <param-value>context_2</param-value>
+    </context-param>
+
+    <!--서블릿 초기화 매개변수 정의-->
+    <servlet>
+        <servlet-name>servletParameterServlet</servlet-name>
+        <servlet-class>Servlet.ServletParameterServlet</servlet-class>
+        <init-param>
+            <param-name>servletParameter1</param-name>
+            <param-value>servlet_1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>servletParameter2</param-name>
+            <param-value>servlet_2</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>servletParameterServlet</servlet-name>
+        <url-pattern>/servletParameters</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

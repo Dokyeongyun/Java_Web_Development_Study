@@ -4,6 +4,7 @@
     <title>Hello, World Application Index File</title>
   </head>
   <body>
-      <a href="test">Go to testPage</a>.
+  <a href="test">서블릿 테스트 페이지로 이동</a>.
+  <a href="FileUploadTest">파일 업로드 테스트 페이지로 이동</a>.
   </body>
 </html>

@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JavaEE_Study" />
+        <module name="Customer-Support-Project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Customer-Support-Project" target="1.8" />
       <module name="JavaEE_Study" target="1.8" />
     </bytecodeTargetLevel>
   </component>

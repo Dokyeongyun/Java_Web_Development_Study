@@ -16,7 +16,9 @@
     }
 %>
 <%
+    // 로컬 변수 정의 및 선언문에서 정의한 메서드 사용
     int beforeSort = returnFirst(arr);
+    // 반복문 사용
     for(int i=0; i<arr.length; i++){
         for(int j=i+1; j<arr.length; j++){
             if(arr[i]>arr[j]){

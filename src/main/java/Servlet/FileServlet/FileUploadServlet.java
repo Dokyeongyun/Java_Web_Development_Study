@@ -27,7 +27,6 @@ public class FileUploadServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         PrintWriter writer = resp.getWriter();
-
         writer.append("<!DOCTYPE html>\r\n")
                 .append("<html>\r\n")
                 .append("    <head>\r\n")

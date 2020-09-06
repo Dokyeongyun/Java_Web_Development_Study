@@ -18,11 +18,14 @@ import java.util.Map;
 /*
   [ 고객 지원 애플리케이션 ]
 
-   1. 구현할 기능
+   구현할 기능
      - 사용자가 질문 올리는 기능
      - 티켓을 받는 기능
      - 직원이 질문에 응답하는 기능
      - 질문, 티켓은 파일 형태로 올림 -> 파일 업로드 기능
+
+     Version 1 : 서블릿 내에 프레젠테이션 코드를 포함시킴
+     Version 2 : 서블릿에는 비즈니스 로직을, JSP 파일에 프레젠테이션 코드를 분리함
  */
 
 /**
@@ -52,7 +55,7 @@ public class TicketServlet extends HttpServlet {
     private final Map<Integer, Ticket> ticketDatabase = new LinkedHashMap<>();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String action = req.getParameter("action");
 
@@ -62,7 +65,7 @@ public class TicketServlet extends HttpServlet {
 
         switch (action) {
             case "create":
-                this.showTicketForm(resp);
+                this.showTicketForm(req, resp);
                 break;
             case "view":
                 this.viewTicket(req, resp);
@@ -72,7 +75,7 @@ public class TicketServlet extends HttpServlet {
                 break;
             case "list":
             default:
-                this.listTickets(resp);
+                this.listTickets(req, resp);
                 break;
         }
     }
@@ -102,8 +105,10 @@ public class TicketServlet extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    private void showTicketForm(HttpServletResponse response) throws IOException {
+    private void showTicketForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        // Version 1 : HTML 코드를 직접 작성하여 POST
+        /*
         // Title 을 작성한 후에 반환된 writer 임
         PrintWriter writer = this.writeHeader(response);
 
@@ -125,6 +130,13 @@ public class TicketServlet extends HttpServlet {
         writer.append("</form>\r\n");
 
         this.writeFooter(writer);
+        */
+
+        // Version 2 : 요청 디스패처를 이용해 요청 전달
+        // forward() 메서드를 통해 요청을 해당 경로로 전달 (리디렉션이 아님!)
+        request.getRequestDispatcher("WEB-INF/jsp/view/showTicketForm.jsp")
+                .forward(request,response);
+
     }
 
     /**
@@ -133,12 +145,15 @@ public class TicketServlet extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         String idString = request.getParameter("ticketId");
         Ticket ticket = this.getTicket(idString, response);
         if (ticket == null)
             return;
 
+        // Version 1 : HTML 코드를 직접 작성하여 POST
+        /*
         PrintWriter writer = this.writeHeader(response);
 
         writer.append("<h2>Ticket #").append(idString)
@@ -164,6 +179,15 @@ public class TicketServlet extends HttpServlet {
         writer.append("<a href=\"tickets\">Return to list tickets</a>\r\n");
 
         this.writeFooter(writer);
+        */
+
+        // Version 2 : JSP 파일에서 필요한 변수를 제공하고 요청을 전달
+        // 동일한 요청을 처리하는 다른 요소간에, 즉 서블릿과 JSP간에 데이터를 전달하는 방법
+        request.setAttribute("ticketId",idString);
+        request.setAttribute("ticket",ticket);
+        request.getRequestDispatcher("/WEB-INF/jsp/view/viewTicket.jsp")
+                .forward(request,response);
+
     }
 
     /**
@@ -207,7 +231,10 @@ public class TicketServlet extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    private void listTickets(HttpServletResponse response) throws IOException {
+    private void listTickets(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        // Version 1 : HTML 코드를 직접 작성하여 POST
+        /*
         // Title 을 작성한 후에 반환된 writer 임
         PrintWriter writer = this.writeHeader(response);
 
@@ -231,8 +258,14 @@ public class TicketServlet extends HttpServlet {
                         .append(")<br/>\r\n");
             }
         }
-
         this.writeFooter(writer);
+*/
+
+        // Version 2 : JSP 파일에서 필요한 변수를 제공하고 요청을 전달
+        request.setAttribute("ticketDatabase", ticketDatabase);
+        request.getRequestDispatcher("WEB-INF/jsp/view/listTickets.jsp")
+                .forward(request,response);
+
     }
 
     /**
@@ -321,13 +354,20 @@ public class TicketServlet extends HttpServlet {
         }
     }
 
-    /**
+
+
+    // 아래 두 메서드는 Version 1 에서 사용됨 - 서블릿에서 View 코드 작성
+/*
+
+    */
+/**
      * 웹 페이지의 Title 을 작성한 후 PrintWriter 를 반환
      *
      * @param response
      * @return PrintWriter
      * @throws IOException
-     */
+     *//*
+
     private PrintWriter writeHeader(HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
@@ -343,13 +383,16 @@ public class TicketServlet extends HttpServlet {
         return writer;
     }
 
-    /**
+    */
+/**
      * 본문의 마지막에 공통으로 작성될 태그 - 중복을 제거하기 위한 메서드
      *
      * @param writer
-     */
+     *//*
+
     private void writeFooter(PrintWriter writer) {
         writer.append("    </body>\r\n").append("</html>\r\n");
     }
+*/
 
 }

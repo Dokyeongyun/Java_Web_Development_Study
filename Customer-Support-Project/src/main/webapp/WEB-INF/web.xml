@@ -4,6 +4,33 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <display-name>Customer Support Application</display-name>
+    <display-name>고객 지원 어플리케이션</display-name>
 
+
+    <!--jsp 공통 프로퍼티 구성-->
+<jsp-config>
+    <!--jsp 프로퍼티 그룹 구성 (여러 개 구성가능)-->
+    <jsp-property-group>
+        <!--웹 애플리케이션 내의 모든 jsp, jspx 파일에 프로퍼티 그룹 적용-->
+        <!--*jspf는 JSP파일의 일부분으로 다른 JSP에 포함되도록 만들어진 것-->
+
+        <!--url 패턴이 servlet-mapping, jsp프로퍼티 그룹에 중복되어 정의된 경우
+        더 구체적으로 일치하는 항목(경로)이 적용됨!, 동일한 경우 서블릿매핑보다 JSP프로퍼티그룹이 우선 적용-->
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>*.jspf</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+
+        <!--true일 경우 JSP 내에서 자바 문법 사용 금지-->
+        <scripting-invalid>false</scripting-invalid>
+
+        <!--해당 프로퍼티 그룹에 속하는 모든 JSP파일 앞부분에 포함시킬 파일 정의-->
+        <!--공통변수, 태그라이브러리, 다른 자원 정의 등-->
+        <!--include-coda 태그는 뒷부분에 포함시킬 파일 정의-->
+        <include-prelude>/WEB-INF/jsp/base.jspf</include-prelude>
+
+        <!--응답 출력에서 지시문, 선언, 스크립틀릿, 다른 JSP태그가 생성한 공백을 제거-->
+        <trim-directive-whitespaces>true</trim-directive-whitespaces>
+        <default-content-type>text/html</default-content-type>
+    </jsp-property-group>
+</jsp-config>
 </web-app>

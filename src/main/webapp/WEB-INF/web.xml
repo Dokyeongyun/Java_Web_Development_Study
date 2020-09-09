@@ -56,4 +56,12 @@
     </servlet-mapping>
 
 
+    <session-config>
+        <!--세션 만료시간 3분으로 설정-->
+        <session-timeout>3</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 </web-app>

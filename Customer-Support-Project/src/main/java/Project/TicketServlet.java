@@ -26,6 +26,7 @@ import java.util.Map;
 
      Version 1 : 서블릿 내에 프레젠테이션 코드를 포함시킴
      Version 2 : 서블릿에는 비즈니스 로직을, JSP 파일에 프레젠테이션 코드를 분리함
+     Version 3 : 세션쿠키를 활용하여 로그인을 구현함
  */
 
 /**
@@ -57,6 +58,13 @@ public class TicketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
+        // 로그인정보가 없으면 로그인 페이지로 리디렉션
+        if(req.getSession().getAttribute("username")==null){
+            resp.sendRedirect("login");
+            return;
+        }
+
+
         String action = req.getParameter("action");
 
         if (action == null) {
@@ -82,6 +90,13 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // 로그인정보가 없으면 로그인 페이지로 리디렉션
+        if(req.getSession().getAttribute("username")==null){
+            resp.sendRedirect("login");
+            return;
+        }
+
         String action = req.getParameter("action");
 
         if (action == null) {
@@ -279,7 +294,10 @@ public class TicketServlet extends HttpServlet {
     private void createTicket(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Ticket ticket = new Ticket();
-        ticket.setCustomerName(request.getParameter("customerName"));
+
+        // Version 3 부터는 로그인 시에만 티켓 페이지를 접속할 수 있으므로, 사용자 이름을 입력받지 않아도 된다.
+        //ticket.setCustomerName(request.getParameter("customerName"));
+        ticket.setCustomerName((String) request.getSession().getAttribute("username"));
         ticket.setSubject(request.getParameter("subject"));
         ticket.setBody(request.getParameter("body"));
 

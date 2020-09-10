@@ -32,4 +32,14 @@
         <default-content-type>text/html</default-content-type>
     </jsp-property-group>
 </jsp-config>
+
+<session-config>
+    <!--세션만료시간 10분, 세션 삽입방법 COOKIE 사용-->
+    <session-timeout>10</session-timeout>
+    <cookie-config>
+        <http-only>true</http-only>
+    </cookie-config>
+    <tracking-mode>COOKIE</tracking-mode>
+</session-config>
+
 </web-app>

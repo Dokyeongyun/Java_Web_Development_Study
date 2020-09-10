@@ -5,18 +5,23 @@
   Time: 오전 2:18
   To change this template use File | Settings | File Templates.
 --%>
-
-<%@ page session="false" %>
+<%--고객 지원 애플리케이션 v3 부터는 session 사용하므로 true로 변경--%>
+<%@ page session="true" %>
 <html>
 <head>
     <title>고객 지원 애플리케이션 showTicketForm</title>
 </head>
 <body>
+
+<%--로그아웃--%>
+<a href="<c:url value="/login?logout" />">로그아웃</a>
+
 <h2>티켓 생성하기</h2>
 <form method="POST" action="tickets" enctype="multipart/form-data">
     <input type="hidden" name="action" value="create"/>
-    이름 <br>
-    <input type="text" name="customerName"><br><br>
+    <%--Version3 부터 로그인시에만 티켓 생성이 가능하므로 사용자 이름을 입력받을 필요가 없다--%>
+<%--    이름 <br>
+    <input type="text" name="customerName"><br><br>--%>
     주제 <br>
     <input type="text" name="subject"><br><br>
     본문 <br>

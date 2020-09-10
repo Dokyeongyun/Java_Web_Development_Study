@@ -6,7 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page session="false"%>
+<%--고객 지원 애플리케이션 v3 부터는 session 사용하므로 true로 변경--%>
+<%@ page session="true"%>
 <%
     String ticketId = (String) request.getAttribute("ticketId");
     Ticket ticket = (Ticket) request.getAttribute("ticket");
@@ -16,6 +17,10 @@
     <title>고객 지원 애플리케이션 viewTicket</title>
 </head>
 <body>
+
+<%--로그아웃--%>
+<a href="<c:url value="/login?logout" />">로그아웃</a>
+
 <h2>티켓 #<%=ticketId%>: <%=ticket.getSubject()%></h2>
 <i>고객 이름: <%=ticket.getCustomerName()%></i><br><br>
 <%=ticket.getBody()%><br><br>

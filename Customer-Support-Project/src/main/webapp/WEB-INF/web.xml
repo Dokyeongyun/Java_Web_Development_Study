@@ -41,5 +41,9 @@
     </cookie-config>
     <tracking-mode>COOKIE</tracking-mode>
 </session-config>
+    
+    <listener>
+        <listener-class>Project.SessionListener</listener-class>
+    </listener>
 
 </web-app>

@@ -29,5 +29,7 @@
         </c:url>"><%=products.get(id)%></a><br/><%
     }
 %>
+<br><br><br>
+<a href="<c:url value="/shop?action=changeSessionId" />">세션 변경하기</a><br/><br/>
 </body>
 </html>

@@ -49,6 +49,12 @@ public class StoreServlet extends HttpServlet {
             case "emptyCart":
                 this.emptyCart(req, resp);
                 break;
+            case "changeSessionId":
+                this.changeSessionId(req, resp);
+                break;
+            case "changeCart":
+                this.changeCart(req, resp);
+                break;
             case "productList":
             default:
                 this.productList(req, resp);
@@ -103,4 +109,19 @@ public class StoreServlet extends HttpServlet {
         resp.sendRedirect("shop?action=viewCart");
     }
 
+    private void changeSessionId(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.changeSessionId();
+        resp.sendRedirect("shop");
+    }
+
+    private void changeCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        HttpSession session = req.getSession();
+        if (session.getAttribute("cart") != null) {
+            Map<Integer,Integer> newMap = new Hashtable<>();
+            session.setAttribute("cart", newMap);
+        }
+
+        resp.sendRedirect("shop?action=viewCart");
+    }
 }

@@ -1,19 +1,20 @@
 package Project;
 
+import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionIdListener;
-import javax.servlet.http.HttpSessionListener;
+import javax.servlet.http.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 
 // 세션리스너를 어노테이션을 이용해 설정한다.
 // 어노테이션외에도 배포설명자에서 <listener> 태그로 선언 할 수도있다.
 @WebListener
-public class SessionListener implements HttpSessionListener, HttpSessionIdListener {
-    private final SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+public class SessionListener implements HttpSessionListener, HttpSessionIdListener{
 
+
+    private final SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
 
     // changeSessionID() 메서드를 통해 세션 ID가 변경될 때마다 호출됨
     @Override
@@ -41,5 +42,6 @@ public class SessionListener implements HttpSessionListener, HttpSessionIdListen
     {
         return this.formatter.format(new Date());
     }
+
 
 }

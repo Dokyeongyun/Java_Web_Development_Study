@@ -30,6 +30,7 @@
     }
 %><br><br>
 <a href="<c:url value="/shop?action=emptyCart" />">장바구니 비우기</a><br><br>
-
+<br><br><br>
+<a href="<c:url value="/shop?action=changeCart" />">장바구니 변경하기</a><br><br>
 </body>
 </html>

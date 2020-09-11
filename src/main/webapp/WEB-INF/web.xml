@@ -7,6 +7,18 @@
     <!--애플리케이션의 이름을 지정-->
     <display-name>[Servlet Test]</display-name>
 
+    <!--JSP 프로퍼티 그룹 설정-->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <url-pattern>*.jspf</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <scripting-invalid>false</scripting-invalid>
+            <include-prelude>/WEB-INF/jsp/base.jspf</include-prelude>
+            <trim-directive-whitespaces>true</trim-directive-whitespaces>
+            <default-content-type>text/html</default-content-type>
+        </jsp-property-group>
+    </jsp-config>
 
     <!--@WebServlet 어노테이션을 활용한 서블릿 선언 및 매핑으로 해당 코드를 주석처리 함-->
   <!--
@@ -54,7 +66,6 @@
         <servlet-name>servletParameterServlet</servlet-name>
         <url-pattern>/servletParameters</url-pattern>
     </servlet-mapping>
-
 
     <session-config>
         <!--세션 만료시간 3분으로 설정-->

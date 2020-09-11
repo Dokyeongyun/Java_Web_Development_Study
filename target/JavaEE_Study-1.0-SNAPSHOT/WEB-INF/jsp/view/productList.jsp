@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Map" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,5 @@
 %>
 <br><br><br>
 <a href="<c:url value="/shop?action=changeSessionId" />">세션 변경하기</a><br/><br/>
-
-
 </body>
 </html>

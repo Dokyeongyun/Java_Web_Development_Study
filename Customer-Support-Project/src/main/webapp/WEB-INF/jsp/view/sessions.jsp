@@ -5,6 +5,8 @@
   Time: 오후 2:22
   To change this template use File | Settings | File Templates.
 --%>
+
+<%--@elvariable id="numberOfSessions" type="java.lang.Integer"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List"%>
 <%!
@@ -29,7 +31,9 @@
 <body>
 <a href="<c:url value="/login?logout" />">로그아웃</a>
 <h2>세션 활동 로그</h2>
-현재 어플리케이션에 총 <%= numberOfSessions %> 개의 세션이 활성화되어있습니다.<br /><br />
+<%--[ 고객 지원 프로젝트 Version 4 ]--%>
+<%--식 언어를 이용해 numberOfSessions 를 대체--%>
+현재 어플리케이션에 총 ${numberOfSessions} 개의 세션이 활성화되어있습니다.<br /><br />
 <%
     long timestamp = System.currentTimeMillis();
     for(HttpSession aSession : sessions)

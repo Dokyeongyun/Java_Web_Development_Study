@@ -37,6 +37,11 @@
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
     -->
+    <!--지역화된 메시지를 로드하기 위한 리소스 번들 구성-->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>AddressBook-messages</param-value>
+    </context-param>
 
     <!--컨텍스트 초기화 매개변수 정의-->
     <context-param>

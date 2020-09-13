@@ -17,7 +17,7 @@
 <%--JSTL 조건문 <c:choose> <c:when> <c:otherwise>--%>
 <c:choose>
     <c:when test="${fn:length(contacts)==0}">
-        <i>전화번호부에 저장된 연락처가 없습니다.</i>
+        <i>전화번호부에 저장된 연락처가 없습니다.</  i>
     </c:when>
     <c:otherwise>
         <c:forEach items="${contacts}" var="contact">

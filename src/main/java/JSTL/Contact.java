@@ -2,6 +2,7 @@ package JSTL;
 
 import java.time.Instant;
 import java.time.MonthDay;
+import java.util.Date;
 
 // 연락처 POJO
 public class Contact implements Comparable<Contact>{
@@ -31,6 +32,10 @@ public class Contact implements Comparable<Contact>{
             return firstName.compareTo(o.firstName);
         }
         return last;
+    }
+
+    public Date getOldDateCreated(){
+        return new Date(this.dateCreated.toEpochMilli());
     }
 
     // Getter, Setter

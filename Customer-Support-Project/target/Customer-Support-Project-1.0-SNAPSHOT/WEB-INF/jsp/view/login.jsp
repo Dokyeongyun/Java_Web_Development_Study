@@ -5,6 +5,7 @@
   Time: 오전 3:29
   To change this template use File | Settings | File Templates.
 --%>
+<%--@elvariable id="loginFaild" type="java.lang.Boolean"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,6 +15,8 @@
 <h2>로그인</h2>
 고객 지원 사이트에 접속하려면 로그인을 해주세요.<br><br>
 
+<%--[고객 지원 어플리케이션 Version 5 : JSTL이용하여 자바 코드 대체--%>
+<%--
 <%
     if (((Boolean) request.getAttribute("loginFailed"))) {
 %>
@@ -21,6 +24,11 @@
 <%
     }
 %>
+--%>
+<c:if test="${loginFaild}">
+    <b>입력하신 이름과 비밀번호가 정확하지 않습니다. 다시 시도해주세요.</b><br><br>
+</c:if>
+
 
 <form method="POST" action="<c:url value="/login"/>">
     이름<br>

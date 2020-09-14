@@ -12,6 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -300,6 +302,8 @@ public class TicketServlet extends HttpServlet {
         ticket.setCustomerName((String) request.getSession().getAttribute("username"));
         ticket.setSubject(request.getParameter("subject"));
         ticket.setBody(request.getParameter("body"));
+        // Version 6 : 커스텀 태그를 이용한 날짜 서식지정 태그사용
+        ticket.setDateCreated(OffsetDateTime.now());
 
         // getPart() 메서드를 통해 multipart/form-data POST 요청으로 수신받은 파트를 가져옴
         Part filePart = request.getPart("file1");

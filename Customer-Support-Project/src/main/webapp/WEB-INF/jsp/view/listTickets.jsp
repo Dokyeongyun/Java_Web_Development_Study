@@ -15,19 +15,50 @@
     Map<Integer, Ticket> ticketDatabase = (Map<Integer,Ticket>)request.getAttribute("ticketDatabase");
 %>
 --%>
+
+<%--[고객 지원 어플리케이션 Version 6 : 템플릿 태그파일 이용한 자바 코드 대체 + 메서드를 EL함수로 선언하여 손쉽게 사용--%>
+<%--
 <html>
 <head>
     <title>고객 지원 애플리케이션 listTickets</title>
 </head>
 <body>
+--%>
+<template:basic htmlTitle="티켓 리스트" bodyTitle="티켓 리스트">
+    <c:choose>
+        <c:when test="${fn:length(ticketDatabase) ==0}">
+            <i>시스템에 저장된 티켓이 없습니다.</i>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${ticketDatabase}" var="entity">
+                티켓 # ${entity.key}: <a href="<c:url value="/tickets">
+                <c:param name="action" value="view" />
+                <c:param name="ticketId" value="${entity.key}" />
+                </c:url>">
+                <c:out value="${dft:abbreviateString(entity.value.subject,60)}" /></a><br>
+                (이름: <c:out value="${entity.value.customerName}"/>)
+                <dft:formatDate value="${entity.value.dateCreated}" type="both"
+                timeStyle="short" dateStyle="medium" /><br>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
 
-<%--로그아웃--%>
+    <br><br><br><br>
+<%--
+    <a href="<c:url value="/sessions" />">세션 활동 로그보기</a>
+--%>
+
+</template:basic>
+
+<%--
+로그아웃
 <a href="<c:url value="/login?logout" />">로그아웃</a>
 
 <h2>티켓 리스트</h2>
 <a href="<c:url value="/tickets">
 <c:param name="action" value="create" />
 </c:url>">티켓 생성하기</a><br><br>
+--%>
 
 <%--[고객 지원 어플리케이션 Version 5 : JSTL이용하여 자바 코드 대체--%>
 <%--
@@ -48,23 +79,8 @@
     }
 %>
 --%>
-<c:choose>
-    <c:when test="${fn:length(ticketDatabase) ==0}">
-        <i>시스템에 저장된 티켓이 없습니다.</i>
-    </c:when>
-    <c:otherwise>
-        <c:forEach items="${ticketDatabase}" var="entity">
-            티켓 # ${entity.key}: <a href="<c:url value="/tickets">
-                <c:param name="action" value="view" />
-                <c:param name="ticketId" value="${entity.key}" />
-                </c:url>"><c:out value="${entity.value.subject}" /></a>
-            (이름: <c:out value="${entity.value.customerName}"/>)<br>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
 
-<br><br><br><br>
-<a href="<c:url value="/sessions" />">세션 활동 로그보기</a>
-
+<%--
 </body>
 </html>
+--%>

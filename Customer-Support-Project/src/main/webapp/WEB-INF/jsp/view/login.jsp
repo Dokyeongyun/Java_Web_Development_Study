@@ -7,6 +7,11 @@
 --%>
 <%--@elvariable id="loginFaild" type="java.lang.Boolean"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--[고객 지원 어플리케이션 Version 6 : 템플릿 태그파일 이용한 자바 코드 대체--%>
+<template:loggedOut htmlTitle="로그인" bodyTitle="로그인">
+    고객 지원 사이트에 접속하려면 로그인을 해주세요.<br><br>
+<%--
 <html>
 <head>
     <title>고객 지원 애플리케이션 로그인</title>
@@ -14,6 +19,8 @@
 <body>
 <h2>로그인</h2>
 고객 지원 사이트에 접속하려면 로그인을 해주세요.<br><br>
+--%>
+
 
 <%--[고객 지원 어플리케이션 Version 5 : JSTL이용하여 자바 코드 대체--%>
 <%--
@@ -38,5 +45,9 @@
     <input type="submit" value="로그인" />
 </form>
 
+<%--
 </body>
 </html>
+--%>
+
+</template:loggedOut>

@@ -20,7 +20,7 @@
         <page-encoding>UTF-8</page-encoding>
 
         <!--true일 경우 JSP 내에서 자바 문법 사용 금지-->
-        <scripting-invalid>false</scripting-invalid>
+        <scripting-invalid>true</scripting-invalid>
 
         <!--해당 프로퍼티 그룹에 속하는 모든 JSP파일 앞부분에 포함시킬 파일 정의-->
         <!--공통변수, 태그라이브러리, 다른 자원 정의 등-->

@@ -1,6 +1,7 @@
 <%--Ticket, Attachment 클래스를 임포트하고 jstl 태그 라이브러리를 선언--%>
 <%--WEB-INF 디렉터리 내에 있는 JSP파일은 웹에서 접근이 불가--%>
 <%--브라우저에서 직접 접근하지 않아야하는 JSP 파일은 이 디렉터리 내에 포함한다.--%>
-<%@ page import="Project.Ticket, Project.Attachment" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="dft" uri="http://www.example.com/jsp/tld/dateFormatTag" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/template" %>

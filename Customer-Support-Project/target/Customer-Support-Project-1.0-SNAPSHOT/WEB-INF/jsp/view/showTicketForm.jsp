@@ -7,11 +7,17 @@
 --%>
 <%--고객 지원 애플리케이션 v3 부터는 session 사용하므로 true로 변경--%>
 <%@ page session="true" %>
+
+
+<%--[고객 지원 어플리케이션 Version 6 : 템플릿 태그파일 이용한 자바 코드 대체--%>
+<%--
 <html>
 <head>
     <title>고객 지원 애플리케이션 showTicketForm</title>
 </head>
 <body>
+--%>
+<template:basic htmlTitle="티켓 생성하기" bodyTitle="티켓 생성하기">
 
 <%--로그아웃--%>
 <a href="<c:url value="/login?logout" />">로그아웃</a>
@@ -30,5 +36,10 @@
     <input type="file" name="file1"/><br><br>
     <input type="submit" value="제출하기"/>
 </form>
+</template:basic>
+
+
+<%--
 </body>
 </html>
+--%>

@@ -14,6 +14,9 @@
   <a href="collections.jsp">[EL] 스트림 API를 이용한 컬렉션 접근 테스트 페이지로 이동</a><br>
   <a href="list">[JSTL] 코어 태그 라이브러리를 이용한 연락처 표시 테스트 페이지로 이동</a><br>
   <a href="list_internalization">[JSTL] 국제화 및 지역화 태그 라이브러리를 이용한 연락처 표시 테스트 페이지로 이동</a><br>
+  <a href="index">[CustomTag] 커스텀 JSP 태그 테스트 페이지로 이동</a><br>
+  <a href="index?dates">[CustomTag] 커스텀 JSP 날짜 서식 지정 태그 테스트 페이지로 이동</a><br>
+  <a href="index?text">[CustomTag] abbreviate 메서드를 EL함수로 만들어 JSP에서 쉽게 사용하는 테스트 페이지로 이동</a><br>
 
   <%--JSTL의 코어 태그 라이브러리 <c:redirect> 를 이용한 리디렉션--%>
 <%--

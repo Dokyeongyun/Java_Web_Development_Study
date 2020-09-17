@@ -60,11 +60,12 @@ public class TicketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        // 로그인정보가 없으면 로그인 페이지로 리디렉션
+        // [고객 지원 어플리케이션 v7 : 인증확인 절차를 필터를 이용해 수행 ]
+/*        // 로그인정보가 없으면 로그인 페이지로 리디렉션
         if(req.getSession().getAttribute("username")==null){
             resp.sendRedirect("login");
             return;
-        }
+        }*/
 
 
         String action = req.getParameter("action");
@@ -93,11 +94,12 @@ public class TicketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // 로그인정보가 없으면 로그인 페이지로 리디렉션
+        // [고객 지원 어플리케이션 v7 : 인증확인 절차를 필터를 이용해 수행 ]
+/*        // 로그인정보가 없으면 로그인 페이지로 리디렉션
         if(req.getSession().getAttribute("username")==null){
             resp.sendRedirect("login");
             return;
-        }
+        }*/
 
         String action = req.getParameter("action");
 

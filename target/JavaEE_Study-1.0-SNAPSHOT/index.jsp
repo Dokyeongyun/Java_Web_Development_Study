@@ -17,6 +17,7 @@
   <a href="index">[CustomTag] 커스텀 JSP 태그 테스트 페이지로 이동</a><br>
   <a href="index?dates">[CustomTag] 커스텀 JSP 날짜 서식 지정 태그 테스트 페이지로 이동</a><br>
   <a href="index?text">[CustomTag] abbreviate 메서드를 EL함수로 만들어 JSP에서 쉽게 사용하는 테스트 페이지로 이동</a><br>
+  <a href="CompressionFilter">[Servlet Filter] CompressionFilter와 LoggingFilter 테스트 페이지로 이동</a><br>
 
   <%--JSTL의 코어 태그 라이브러리 <c:redirect> 를 이용한 리디렉션--%>
 <%--

@@ -80,4 +80,37 @@
         </cookie-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
+
+    <!--서블릿 필터 선언 및 매핑-->
+    <filter>
+        <filter-name>filterA</filter-name>
+        <filter-class>Filter.FilterA</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>filterA</filter-name>
+        <url-pattern>/filterTest/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>filterB</filter-name>
+        <filter-class>Filter.FilterB</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>filterB</filter-name>
+        <url-pattern>/filterTest/servletB</url-pattern>
+        <url-pattern>/filterTest/servletC</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>filterC</filter-name>
+        <filter-class>Filter.FilterC</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>filterC</filter-name>
+        <url-pattern>/filterTest/servletB</url-pattern>
+    </filter-mapping>
+
 </web-app>

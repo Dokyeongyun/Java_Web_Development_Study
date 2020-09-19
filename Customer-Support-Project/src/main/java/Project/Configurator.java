@@ -20,7 +20,8 @@ public class Configurator implements ServletContextListener {
 
         registration.setAsyncSupported(true);
         // 로그인 해야볼 수 있는 tickets 페이지와 sessions 페이지에 접근 시 인증확인!
-        registration.addMappingForUrlPatterns(null, false, "/tickets", "/sessions");
+        // [고객 지원 어플리케이션 v8 : 웹소켓을 이용해 채팅시스템 구현 ]
+        registration.addMappingForUrlPatterns(null, false, "/tickets", "/sessions", "/chat");
 
     }
 

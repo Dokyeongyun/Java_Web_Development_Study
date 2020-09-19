@@ -1,6 +1,8 @@
 package WebSocket;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Random;
@@ -49,6 +51,13 @@ public class TicTacToeGame {
         return nextMove == Player.PLAYER1 ? player1 : player2;
     }
 
+    public boolean isOver() {
+        return over;
+    }
+
+    public boolean isDraw() {
+        return draw;
+    }
     public Player getWinner() {
         return winner;
     }
@@ -58,13 +67,6 @@ public class TicTacToeGame {
         return (Map<Long, String>) TicTacToeGame.pendingGames.clone();
     }
 
-    public boolean isOver() {
-        return over;
-    }
-
-    public boolean isDraw() {
-        return draw;
-    }
 
     public static TicTacToeGame getActiveGame(long gameId) {
         return TicTacToeGame.activeGames.get(gameId);
@@ -73,18 +75,19 @@ public class TicTacToeGame {
     /**
      * 이동가능한지 확인 후 이동, 이동할 때마다 게임이 끝났는지 / 승자가 누구인지 확인
      */
+    @JsonIgnore
     public synchronized void move(Player player, int row, int column) {
         if (player != this.nextMove)
-            throw new IllegalArgumentException("당신의 차례가 아닙니다.");
+            throw new IllegalArgumentException("It is not your turn!");
 
         if (row > 2 || column > 2)
-            throw new IllegalArgumentException("행과 열은 0~3 사이로 입력해주세요.");
+            throw new IllegalArgumentException("Row and column must be 0-3.");
 
         if (this.grid[row][column] != null)
-            throw new IllegalArgumentException("해당 칸으로 이동할 수 없습니다.");
+            throw new IllegalArgumentException("Move already made at " + row + "," + column);
 
         this.grid[row][column] = player;
-        this.nextMove = this.nextMove == Player.PLAYER1 ? Player.PLAYER1 : Player.PLAYER2;
+        this.nextMove = this.nextMove == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1;
         this.winner = this.calculateWinner();
         if (this.getWinner() != null || this.isDraw()) {
             this.over = true;

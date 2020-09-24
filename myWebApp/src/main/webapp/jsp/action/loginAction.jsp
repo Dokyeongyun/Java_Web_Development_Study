@@ -30,7 +30,7 @@
         PrintWriter writer = response.getWriter();
         writer.println("<script>");
         writer.println("alert('이미 로그인 되어 있습니다.')");
-        writer.println("location.href='../../index.html'");
+        writer.println("location.href='../../index.jsp'");
         writer.println("</script>");
     }
 
@@ -42,7 +42,7 @@
     if (result == 1) {
         session.setAttribute("userID", user.getUserID());
         writer.println("alert('로그인 성공! 메인페이지로 이동합니다.')");
-        writer.println("location.href='../../index.html'");
+        writer.println("location.href='../../index.jsp'");
     } else if (result == 0) {
         writer.println("alert('비밀번호를 잘못 입력하셨습니다.')");
         writer.println("history.back()");

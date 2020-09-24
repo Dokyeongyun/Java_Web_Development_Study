@@ -1,16 +1,14 @@
-<%@ page import="java.io.PrintWriter" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020-09-24
-  Time: 오전 2:06
+  Time: 오후 6:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
     <meta charset="utf-8">
@@ -18,26 +16,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>My Web Application</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/myWebApp_war/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../../css/simple-sidebar.css" rel="stylesheet">
+    <link href="/myWebApp_war/css/simple-sidebar.css" rel="stylesheet">
 
 </head>
 
 <body>
---%>
-<%--
 <div class="d-flex toggled" id="wrapper">
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">MENU</div>
         <div class="list-group list-group-flush">
-            <a href="board.jsp" class="list-group-item list-group-item-action bg-light">게시판</a>
+            <a href="/myWebApp_war/jsp/view/board.jsp" class="list-group-item list-group-item-action bg-light">게시판</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
@@ -51,7 +47,7 @@
     <div id="page-content-wrapper">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <a class="navbar-brand" href="../../index.jsp">메인페이지</a>
+            <a class="navbar-brand" href="/myWebApp_war/index.jsp">메인페이지</a>
 
             <!--
                     <button class="btn btn-primary" id="menu-toggle">Menu</button>
@@ -80,8 +76,8 @@
                             접속하기
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="login.jsp">로그인</a>
-                            <a class="dropdown-item" href="join.jsp">회원가입</a>
+                            <a class="dropdown-item" href="/myWebApp_war/jsp/view/login.jsp">로그인</a>
+                            <a class="dropdown-item" href="/myWebApp_war/jsp/view/join.jsp">회원가입</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
@@ -89,43 +85,3 @@
                 </ul>
             </div>
         </nav>
---%>
-
-<%@include file="../header.jsp" %>
-<%
-    String userID = null;
-    if (session.getAttribute("userID") != null) {
-        userID = (String) session.getAttribute("userID");
-    }
-    if (userID != null) {
-        PrintWriter writer = response.getWriter();
-        writer.println("<script>");
-        writer.println("alert('이미 로그인 되어 있습니다.')");
-        writer.println("location.href='../../index.jsp'");
-        writer.println("</script>");
-    }
-
-%>
-
-<div class="container-fluid" style="margin-top: 20px;">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4" style="margin-left: auto; margin-right: auto;">
-        <div class="jumbotron" style="padding-top: 20px;">
-            <form method="post" action="../action/loginAction.jsp">
-                <h3 style="text-align: center;">로그인</h3>
-                사용자 ID
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="ID" name="userID" maxlength="20">
-                </div>
-                비밀번호
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" name="userPassword">
-                </div>
-                <input type="submit" class="btn btn-primary form-control" value="로그인">
-            </form>
-        </div>
-    </div>
-    <div class="col-lg-4"></div>
-</div>
-
-<%@include file="../footer.jsp"%>

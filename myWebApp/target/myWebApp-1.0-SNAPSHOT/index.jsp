@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="jsp/header.jsp"%>
+<%--
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -39,7 +43,7 @@
     <div id="page-content-wrapper">
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <a class="navbar-brand" href="index.html">메인페이지</a>
+        <a class="navbar-brand" href="index.jsp">메인페이지</a>
 
 <!--
         <button class="btn btn-primary" id="menu-toggle">Menu</button>
@@ -68,8 +72,8 @@
                 접속하기
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="jsp/view/login.jsp">로그인</a>
-                <a class="dropdown-item" href="jsp/view/join.jsp">회원가입</a>
+                <a class="dropdown-item" href="./jsp/view/login.jsp">로그인</a>
+                <a class="dropdown-item" href="./join.jsp">회원가입</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
@@ -77,12 +81,15 @@
           </ul>
         </div>
       </nav>
+--%>
 
       <div class="container-fluid">
-        <h1 class="mt-4">Simple Sidebar</h1>
-        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+        <h1 class="mt-4">Main Page</h1>
+        <p>메인 페이지입니다.</p>
+        <p><code>#page-content-wrapper</code>  <code>#menu-toggle</code></p>
       </div>
+<%@include file="jsp/footer.jsp"%>
+<%--
     </div>
     <!-- /#page-content-wrapper -->
 
@@ -104,3 +111,4 @@
 </body>
 
 </html>
+--%>

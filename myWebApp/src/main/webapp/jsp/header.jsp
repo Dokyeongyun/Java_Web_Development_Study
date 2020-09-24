@@ -59,7 +59,8 @@
                 </li>
             </ul>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -72,14 +73,26 @@
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             접속하기
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <%
+                                String userID = null;
+                                if (session.getAttribute("userID") != null) {
+                                    userID = (String) session.getAttribute("userID");
+                            %>
+                            <a class="dropdown-item" href="/myWebApp_war/jsp/action/logoutAction.jsp">로그아웃</a>
+                            <%
+                            } else {
+                            %>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/myWebApp_war/jsp/view/login.jsp">로그인</a>
                             <a class="dropdown-item" href="/myWebApp_war/jsp/view/join.jsp">회원가입</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <%
+                                }
+                            %>
                         </div>
                     </li>
                 </ul>

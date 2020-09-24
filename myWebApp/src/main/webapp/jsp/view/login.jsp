@@ -9,10 +9,7 @@
 
 <%@include file="../header.jsp" %>
 <%
-    String userID = null;
-    if (session.getAttribute("userID") != null) {
-        userID = (String) session.getAttribute("userID");
-    }
+
     if (userID != null) {
         PrintWriter writer = response.getWriter();
         writer.println("<script>");

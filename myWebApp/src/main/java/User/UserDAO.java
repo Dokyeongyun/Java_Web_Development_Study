@@ -15,7 +15,7 @@ public class UserDAO {
     public UserDAO() {
         try {
             // 데이터베이스 접근 URL
-            String dbURL = "jdbc:mysql://localhost:3306/myWebApp?serverTimezone=UTC";
+            String dbURL = "jdbc:mysql://localhost:3306/myWebApp?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
             String dbID = "root";
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -59,6 +59,6 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -1; //데이터베이스 오류 (userID 중복)
+        return -1; //데이터베이스 오류
     }
 }

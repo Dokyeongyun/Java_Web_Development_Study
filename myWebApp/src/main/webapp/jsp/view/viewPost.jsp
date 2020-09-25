@@ -35,21 +35,51 @@
     }
 %>
 
+<%--게시판 header--%>
+<nav class="navbar navbar-expand-lg navbar-light border-bottom">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록1</li>
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록2</li>
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록3</li>
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록4</li>
+    </ul>
+</nav>
 
-<%--글 내용 보여주기--%>
 <div class="container-fluid" style="margin-top: 20px; width: 70%">
-    <h1><%=board.getbID()%>
-        <t></t>
-        <%=board.getbTitle()%>
-    </h1>
-    <div class="form-inline">
-        <h2 style="margin-left: 20px"><%=board.getUserID()%>
-        </h2>
-        <h4 style="margin-left: 30px"><%=board.getbDate()%>
-        </h4>
+
+    <%--글 내용 보여주기--%>
+    <%--Title--%>
+    <div class="jumbotron" style="background-color: white; padding: 2rem 1rem">
+        <h1><%=board.getbTitle()%></h1>
     </div>
-    <h4><%=board.getbContent()%>
-    </h4>
+
+    <%--userID, 작성일자--%>
+    <div class="form-inline">
+        <h3 style="margin-left: 20px"><%=board.getUserID()%></h3>
+        <h6 style="margin-left: 30px; padding-top: 10px"><%=board.getbDate()%></h6>
+        <%--Dropdown menu--%>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                설정
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">수정하기</a>
+                <a class="dropdown-item" href="#">삭제하기</a>
+            </div>
+        </div>
+    </div><hr>
+
+    <%--Content--%>
+        <div id="postBody" style="margin-bottom: 100px">
+            <div style="padding: 2rem 1rem">
+                <p><%=board.getbContent()%></p>
+            </div>
+        </div><hr>
+
+    <%--글 목록 버튼--%>
+        <div align="right" style="padding-right: 50px">
+            <button class="btn btn-warning" type="button" onclick="location.href='board.jsp' ">목록으로</button>
+        </div>
 </div>
 
 

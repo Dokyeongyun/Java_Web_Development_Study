@@ -21,27 +21,28 @@
     }
 %>
 
+<%--게시판 header--%>
+<nav class="navbar navbar-expand-lg navbar-light border-bottom">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록1</li>
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록2</li>
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록3</li>
+        <li style="padding-left: 50px;"><a href="#"></a> 글 목록4</li>
+    </ul>
+</nav>
+
 
 <%--게시판 목록--%>
 <div class="container-fluid" style="margin-outside: 100px; margin-bottom: 150px">
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom">
-        <ul class="navbar-nav mt-2 mt-lg-0">
-            <li style="padding-left: 50px;"><a href="#"></a> 글 목록1</li>
-            <li style="padding-left: 50px;"><a href="#"></a> 글 목록2</li>
-            <li style="padding-left: 50px;"><a href="#"></a> 글 목록3</li>
-            <li style="padding-left: 50px;"><a href="#"></a> 글 목록4</li>
-        </ul>
-    </nav>
-
     <h1 style="margin-top: 20px; margin-bottom: 20px">게시판 이름</h1>
-    <div class="table-responsive-lg">
+    <div class="table-responsive-lg" style="text-align: center">
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일자</th>
+                <th style="width: 5%">번호</th>
+                <th style="width: 40%">제목</th>
+                <th style="width: 20%;">작성자</th>
+                <th style="width: 20%">작성일자</th>
             </tr>
             </thead>
             <tbody>
@@ -54,7 +55,8 @@
             <tr>
                 <td><%=list.get(i).getbID()%>
                 </td>
-                <td><a href="viewPost.jsp?bID=<%=list.get(i).getbID()%>"><%=list.get(i).getbTitle()%>
+                <%--TODO 제목이 일정 길이가 넘어가면 그 뒤는 ... 표시로 대체하기--%>
+                <td style="text-align: left; padding-left: 50px"><a href="viewPost.jsp?bID=<%=list.get(i).getbID()%>"><%=list.get(i).getbTitle()%>
                 </a></td>
                 <td><%=list.get(i).getUserID()%>
                 </td>

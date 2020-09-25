@@ -19,7 +19,7 @@
             <input class="form-control" type="text" name="bTitle" maxlength="50" placeholder="제목" style="height: 50px"/>
         </div>
         <div class="form-group">
-            <textarea class="form-control" maxlength="5012" placeholder="내용을 작성하세요." style="height: 500px"></textarea>
+            <textarea class="form-control" name="bContent" maxlength="5012" placeholder="내용을 작성하세요." style="height: 500px"></textarea>
         </div>
         <div class="check-box" style="margin-bottom: 20px;">
             Please Check for upload. <input type="checkbox"/>

@@ -5,10 +5,10 @@
   Time: 오전 2:06
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--header--%>
 <%@ include file="../header.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--회원가입 form--%>
 <div class="container-fluid" style="margin-top: 20px;">

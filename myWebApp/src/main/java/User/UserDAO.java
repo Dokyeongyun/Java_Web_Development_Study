@@ -15,7 +15,7 @@ public class UserDAO {
     public UserDAO() {
         try {
             // 데이터베이스 접근 URL
-            String dbURL = "jdbc:mysql://localhost:3306/myWebApp?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
+            String dbURL = "jdbc:mysql://localhost:3306/mywebapp?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
             String dbID = "root";
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver");

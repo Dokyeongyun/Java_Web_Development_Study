@@ -44,25 +44,25 @@ public class BoardDAO {
     }
 
     /*DB에 글이 등록되는 시점*/
-    public String getDate(){
+    public String getDate() {
         String SQL = "SELECT NOW()";
-        try{
+        try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
             rs = pstmt.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 return rs.getString(1);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ""; //DB 오류
     }
 
-    public int writePost(String bTitle, String userID, String bContent){
+    public int writePost(String bTitle, String userID, String bContent) {
         String SQL = "INSERT INTO board VALUES(?, ?, ?, ?, ?, ?)";
 
-        try{
+        try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
             pstmt.setInt(1, getNextID());
             pstmt.setString(2, bTitle);
@@ -72,48 +72,49 @@ public class BoardDAO {
             pstmt.setInt(6, 1); // 1이면 삭제하지 않았다는 뜻
 
             return pstmt.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-    public Board getPost(int bID){
+    public Board getPost(int bID) {
         String SQL = "SELECT * FROM board WHERE bID = ?";
         Board board = new Board();
         board.setbID(bID);
-        try{
+        try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
             pstmt.setInt(1, bID);
 
             rs = pstmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 // bAvailable 이 1이면 가져오기
-                if(rs.getInt(6)==1){
+                if (rs.getInt(6) == 1) {
                     board.setbTitle(rs.getString(2));
                     board.setUserID(rs.getString(3));
                     board.setbDate(rs.getString(4));
                     board.setbContent(rs.getString(5));
                     return board;
-                }else{
+                } else {
                     return new Board();
                 }
             }
             return new Board(); // 해당 글 없음
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new Board(); // DB 오류
     }
 
-    public ArrayList<Board> getList(){
-        String SQL = "SELECT * FROM BOARD";
+    public ArrayList<Board> getList(int pageNum) {
+        String SQL = "SELECT * FROM BOARD WHERE bID < ? AND bAvailable = 1 ORDER BY bID DESC LIMIT 10";
         ArrayList<Board> list = new ArrayList<>();
-        try{
+        try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
+            pstmt.setInt(1, getNextID() - (pageNum - 1) * 10);
             rs = pstmt.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 Board board = new Board();
                 board.setbID(rs.getInt(1));
                 board.setbTitle(rs.getString(2));
@@ -124,11 +125,43 @@ public class BoardDAO {
 
                 list.add(board);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
 
+
+    public boolean nextPage(int pageNum) {
+        String SQL = "SELECT * FROM BOARD WHERE bID < ? AND bAvailable = 1 ORDER BY bID DESC LIMIT 10";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            pstmt.setInt(1, getNextID() - (pageNum - 1) * 10);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public int getPostNum() {
+        String SQL = "SELECT COUNT(*) FROM board WHERE bAvailable = 1";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
 }

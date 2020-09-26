@@ -2,13 +2,16 @@
 <%@ page import="Board.BoardDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--header--%>
-<%@ include file="../header.jsp" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
 
+    String userID = null;
+    if (session.getAttribute("userID") != null) {
+        userID = (String) session.getAttribute("userID");
+    }
+    int bID = Integer.parseInt(request.getParameter("bID"));
     String bTitle = request.getParameter("bTitle");
     String bContent = request.getParameter("bContent");
     String bPassword = request.getParameter("bPassword");
@@ -17,14 +20,14 @@
     if (userID != null) {
         bPassword = userID;
     }
-    if(userID == null){
+    if (userID == null) {
         userID = "Guest";
     }
 
     PrintWriter writer = response.getWriter();
 
     BoardDAO boardDAO = new BoardDAO();
-    int result = boardDAO.writePost(bTitle, userID, bContent, bPassword);
+    int result = boardDAO.update(bID, bTitle, bContent, bPassword);
 
     writer.println("<script>");
     if (result != -1) {
@@ -36,6 +39,3 @@
     }
     writer.println("</script>");
 %>
-
-<%--footer--%>
-<%@ include file="../footer.jsp" %>

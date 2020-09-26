@@ -21,6 +21,16 @@ public class Board {
     private String bContent;
     private int bAvailable;
 
+    public String getbPassword() {
+        return bPassword;
+    }
+
+    public void setbPassword(String bPassword) {
+        this.bPassword = bPassword;
+    }
+
+    private String bPassword;
+
     public Board() {
     }
 

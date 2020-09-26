@@ -16,15 +16,29 @@
 
     <form method="POST" action="../action/writePostAction.jsp">
         <div class="form-group">
-            <input class="form-control" type="text" name="bTitle" maxlength="50" placeholder="제목" style="height: 50px"/>
+            <input class="form-control" type="text" name="bTitle" maxlength="200" placeholder="제목" style="height: 50px"/>
         </div>
         <div class="form-group">
-            <textarea class="form-control" name="bContent" maxlength="5012" placeholder="내용을 작성하세요." style="height: 500px"></textarea>
+            <textarea class="form-control" name="bContent" maxlength="8192" placeholder="내용을 작성하세요." style="height: 500px"></textarea>
         </div>
-        <div class="check-box" style="margin-bottom: 20px;">
-            Please Check for upload. <input type="checkbox"/>
+        <div class="form-inline">
+            <div class="check-box" >
+                Please Check for upload. <input type="checkbox"/>
+            </div>
+            <%
+                if(userID==null){
+            %>
+            <%--로그인하지 않은 사용자에게만 보여주기--%>
+            <div class="form-group" style="margin-left: 100px">
+                <label> 비밀번호
+                    <input type="password" name="bPassword" class="form-control" required/>
+                </label>
+            </div>
+            <%
+                }
+            %>
         </div>
-        <input type="submit" value="글 쓰기" style="margin-bottom: 200px"/>
+        <input class="btn btn-primary pull-right" type="submit" value="글 쓰기" style="margin-bottom: 200px"/>
     </form>
 </div>
 

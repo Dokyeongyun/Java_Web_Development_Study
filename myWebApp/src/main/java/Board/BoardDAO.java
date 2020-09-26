@@ -59,8 +59,8 @@ public class BoardDAO {
         return ""; //DB 오류
     }
 
-    public int writePost(String bTitle, String userID, String bContent) {
-        String SQL = "INSERT INTO board VALUES(?, ?, ?, ?, ?, ?)";
+    public int writePost(String bTitle, String userID, String bContent, String bPassword) {
+        String SQL = "INSERT INTO board VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -70,6 +70,7 @@ public class BoardDAO {
             pstmt.setString(4, getDate());
             pstmt.setString(5, bContent);
             pstmt.setInt(6, 1); // 1이면 삭제하지 않았다는 뜻
+            pstmt.setString(7, bPassword);
 
             return pstmt.executeUpdate();
         } catch (Exception e) {
@@ -94,6 +95,8 @@ public class BoardDAO {
                     board.setUserID(rs.getString(3));
                     board.setbDate(rs.getString(4));
                     board.setbContent(rs.getString(5));
+                    board.setbAvailable(rs.getInt(6));
+                    board.setbPassword(rs.getString(7));
                     return board;
                 } else {
                     return new Board();
@@ -154,10 +157,26 @@ public class BoardDAO {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
             rs = pstmt.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 return rs.getInt(1);
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public int update(int bId, String bTitle, String bContent, String bPassword) {
+        String SQL = "UPDATE board SET bTitle = ?, bContent = ?, bPassword = ? WHERE bID = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            pstmt.setString(1, bTitle);
+            pstmt.setString(2, bContent);
+            pstmt.setString(3, bPassword);
+            pstmt.setInt(4, bId);
+
+            return pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

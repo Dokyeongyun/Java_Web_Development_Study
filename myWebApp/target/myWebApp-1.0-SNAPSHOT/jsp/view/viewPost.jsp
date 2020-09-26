@@ -8,7 +8,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--@elvariable id="board" type="Board.Board"--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <%--header--%>
 <%@ include file="../header.jsp" %>
 
@@ -45,12 +47,12 @@
     </ul>
 </nav>
 
-<div class="container-fluid" style="margin-top: 20px; width: 70%">
+<div class="container-fluid" style="margin-top: 20px; width: 70%; margin-bottom: 150px">
 
     <%--글 내용 보여주기--%>
-    <%--Title--%>
+    <%--Title, 크로스사이트스크립팅 방지--%>
     <div class="jumbotron" style="background-color: white; padding: 2rem 1rem">
-        <h1><%=board.getbTitle()%></h1>
+        <h1><c:out value="<%=board.getbTitle()%>"/></h1>
     </div>
 
     <%--userID, 작성일자--%>
@@ -63,16 +65,17 @@
                 설정
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">수정하기</a>
-                <a class="dropdown-item" href="#">삭제하기</a>
+                <a class="dropdown-item" href="../action/updatePostAction.jsp?bID=<%=board.getbID()%>">수정하기</a>
+                <a class="dropdown-item" href="../action/deletePostAction.jsp">삭제하기</a>
             </div>
         </div>
     </div><hr>
 
-    <%--Content--%>
-        <div id="postBody" style="margin-bottom: 100px">
+    <%--Content, 크로스사이트스크립팅 방지--%>
+        <div id="postBody" style=" min-height: 400px">
             <div style="padding: 2rem 1rem">
-                <p><%=board.getbContent()%></p>
+                <%--textarea에 입력된 개행문자를 실행하기 위해 <pre>태그사용--%>
+                <pre><c:out value="<%=board.getbContent()%>"/></pre>
             </div>
         </div><hr>
 

@@ -13,13 +13,6 @@
 <jsp:useBean id="user" class="User.User" scope="page"/>
 <jsp:setProperty name="user" property="userID"/>
 <jsp:setProperty name="user" property="userPassword"/>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
 <%
     String userID = null;
@@ -55,5 +48,3 @@
     }
     writer.println("</script>");
 %>
-</body>
-</html>

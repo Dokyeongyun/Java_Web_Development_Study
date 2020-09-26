@@ -5,9 +5,12 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.html" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/action/updatePostAction.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/action" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/action/writePostAction.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/action" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/base.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/view/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/view" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/view/viewPost.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/view" />
       </map>
     </option>
   </component>

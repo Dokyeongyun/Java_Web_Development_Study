@@ -1,14 +1,10 @@
 <%@ page import="Board.BoardDAO" %>
 <%@ page import="Board.Board" %>
-<%@ page import="java.util.ArrayList" %><%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 2020-09-24
-  Time: 오전 1:35
-  To change this template use File | Settings | File Templates.
---%>
-<!DOCTYPE html>
+<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<!DOCTYPE html>
 
 <%--header--%>
 <%@ include file="../header.jsp" %>
@@ -56,7 +52,10 @@
                 <td><%=list.get(i).getbID()%>
                 </td>
                 <%--TODO 제목이 일정 길이가 넘어가면 그 뒤는 ... 표시로 대체하기--%>
-                <td style="text-align: left; padding-left: 50px"><a href="viewPost.jsp?bID=<%=list.get(i).getbID()%>"><%=list.get(i).getbTitle()%>
+                <%--크로스사이트스크립팅 방지--%>
+                <td style="text-align: left; padding-left: 50px">
+                    <a href="viewPost.jsp?bID=<%=list.get(i).getbID()%>">
+                        <c:out value='<%=list.get(i).getbTitle()%>'/>
                 </a></td>
                 <td><%=list.get(i).getUserID()%>
                 </td>

@@ -66,7 +66,7 @@
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="../action/updatePostAction.jsp?bID=<%=board.getbID()%>">수정하기</a>
-                <a class="dropdown-item" href="../action/deletePostAction.jsp">삭제하기</a>
+                <a onclick="return confirm('정말 삭제하시겠습니까?')" class="dropdown-item" href="../action/deletePostAction.jsp?bID=<%=board.getbID()%>">삭제하기</a>
             </div>
         </div>
     </div><hr>

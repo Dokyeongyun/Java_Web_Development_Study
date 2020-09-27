@@ -183,4 +183,17 @@ public class BoardDAO {
         return -1;
     }
 
+    public int delete(int bID){
+        String SQL = "UPDATE board SET bAvailable = 0 WHERE bID = ?";
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            pstmt.setInt(1,bID);
+
+            return pstmt.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 }

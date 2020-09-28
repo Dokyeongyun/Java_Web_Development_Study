@@ -4,6 +4,7 @@ import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.HttpRequestUtils;
+import util.IOUtils;
 
 import java.io.*;
 import java.net.Socket;
@@ -38,15 +39,40 @@ public class RequestHandler extends Thread {
             /* 요구사항 2 - GET 방식으로 회원가입하기
             *  GET /user/create?userId=java&password=password&name=Kyeongyun&email=aservmz%40naver.com
             *  위 형태로 값이 전달되는데, 이를 파싱하여 User 클래스에 저장한다. */
+/*
             int index = url.indexOf("?");
             String url2 = url.substring(0,index);
             String query = url.substring(index+1);
             Map<String, String> map = HttpRequestUtils.parseQueryString(query);
             User user = new User(map.get("userId"), map.get("password"), map.get("name"), map.get("email"));
             log.debug("User : {} ", user);
+*/
+
+            /* 요구사항 3 - POST 방식으로 회원가입하기
+            *  user/form.html 파일의 form태그 method속성을 GET에서 POST로 변경
+            *  POST로 전달하면 데이터가 HTTP 본문에 담김
+            *  HTTP 본문은 헤더 이후 공백 한 줄 다음부터 시작
+            *  본문을 파싱하여 User 객체를 생성하라
+            *  */
+
+            // Content-Length 헤더를 찾는 것이 중요!
+            int contentLength = 0;
+            while(!line.equals("")){
+                line = br.readLine();
+
+                if(line.startsWith("Content-Length")){
+                    String[] split = line.split(":");
+                    contentLength = Integer.parseInt(split[1].trim());
+                }
+            }
+
+            String contentBody = IOUtils.readData(br, contentLength);
+            Map<String, String> map = HttpRequestUtils.parseQueryString(contentBody);
+            User user = new User(map.get("userId"), map.get("password"), map.get("name"), map.get("email"));
+            log.debug("User : {} ", user);
 
             File cur = new File("C:/Users/Admin/IdeaProjects/JavaEE_Study/NextStep/src/main");
-            byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url2).toPath());
+            byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
 
             DataOutputStream dos = new DataOutputStream(out);
             // byte[] body = "Hello World".getBytes();

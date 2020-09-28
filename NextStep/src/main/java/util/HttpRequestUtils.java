@@ -2,13 +2,25 @@ package util;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import webserver.RequestHandler;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HttpRequestUtils {
+    private static final Logger log = LoggerFactory.getLogger(HttpRequestUtils.class);
+
+    /* 요구사항 1 - index.html 응답하기 */
+    public static String getUrl(String line) {
+        // /index.html 은 요청의 첫 줄에 포함됨
+        String[] split = line.split(" ");
+        String path = split[1];
+        log.debug("request path : {}", path);
+        return path;
+    }
 
     /**
      * @param queryString은

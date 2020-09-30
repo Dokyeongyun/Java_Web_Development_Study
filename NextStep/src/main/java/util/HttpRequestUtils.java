@@ -18,7 +18,7 @@ public class HttpRequestUtils {
         // /index.html 은 요청의 첫 줄에 포함됨
         String[] split = line.split(" ");
         String path = split[1];
-       // log.debug("request path : {}", path);
+        log.debug("request path : {}", path);
         return path;
     }
 

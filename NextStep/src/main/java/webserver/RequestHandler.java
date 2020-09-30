@@ -149,6 +149,13 @@ public class RequestHandler extends Thread {
                     return;
                 }
 
+            } else if(url.endsWith(".css")){
+                /* 요구사항 7 - CSS 지원하기
+                *  응답헤더의 Content-Type을 text/css로 하여 css 파일이라는 걸 알려줌 */
+                DataOutputStream dos = new DataOutputStream(out);
+                byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
+                response200CSSHeader(dos, body.length);
+                responseBody(dos, body);
             } else {
                 byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
 
@@ -190,6 +197,17 @@ public class RequestHandler extends Thread {
             dos.writeBytes("Location: " + url + "\r\n");
             dos.writeBytes("\r\n");
         } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void response200CSSHeader(DataOutputStream dos, int lengthOfBodyContent) {
+        try {
+            dos.writeBytes("HTTP/1.1 200 OK \r\n");
+            dos.writeBytes("Content-Type: text/css;\r\n");
+            dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
+            dos.writeBytes("\r\n");
+        } catch (IOException e) {
             log.error(e.getMessage());
         }
     }

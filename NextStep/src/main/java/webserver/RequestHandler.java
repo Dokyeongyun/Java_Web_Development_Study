@@ -14,6 +14,7 @@ import java.util.Map;
 // 스레드를 상속함,
 public class RequestHandler extends Thread {
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
+    static File cur = new File("C:/Users/Admin/IdeaProjects/JavaEE_Study/NextStep/src/main");
 
     private Socket connection;
 
@@ -37,8 +38,8 @@ public class RequestHandler extends Thread {
             String url = HttpRequestUtils.getUrl(line);
 
             /* 요구사항 2 - GET 방식으로 회원가입하기
-            *  GET /user/create?userId=java&password=password&name=Kyeongyun&email=aservmz%40naver.com
-            *  위 형태로 값이 전달되는데, 이를 파싱하여 User 클래스에 저장한다. */
+             *  GET /user/create?userId=java&password=password&name=Kyeongyun&email=aservmz%40naver.com
+             *  위 형태로 값이 전달되는데, 이를 파싱하여 User 클래스에 저장한다. */
 /*
             int index = url.indexOf("?");
             String url2 = url.substring(0,index);
@@ -49,40 +50,57 @@ public class RequestHandler extends Thread {
 */
 
             /* 요구사항 3 - POST 방식으로 회원가입하기
-            *  user/form.html 파일의 form태그 method속성을 GET에서 POST로 변경
-            *  POST로 전달하면 데이터가 HTTP 본문에 담김
-            *  HTTP 본문은 헤더 이후 공백 한 줄 다음부터 시작
-            *  본문을 파싱하여 User 객체를 생성하라
-            *  */
+             *  user/form.html 파일의 form태그 method속성을 GET에서 POST로 변경
+             *  POST로 전달하면 데이터가 HTTP 본문에 담김
+             *  HTTP 본문은 헤더 이후 공백 한 줄 다음부터 시작
+             *  본문을 파싱하여 User 객체를 생성하라
+             *  */
 
             // Content-Length 헤더를 찾는 것이 중요!
             int contentLength = 0;
-            while(!line.equals("")){
+            while (!line.equals("")) {
                 line = br.readLine();
 
-                if(line.startsWith("Content-Length")){
+                if (line.startsWith("Content-Length")) {
                     String[] split = line.split(":");
                     contentLength = Integer.parseInt(split[1].trim());
                 }
             }
 
-            String contentBody = IOUtils.readData(br, contentLength);
-            Map<String, String> map = HttpRequestUtils.parseQueryString(contentBody);
-            User user = new User(map.get("userId"), map.get("password"), map.get("name"), map.get("email"));
-            log.debug("User : {} ", user);
+            if (url.equals("/user/create")) {
+                String contentBody = IOUtils.readData(br, contentLength);
+                Map<String, String> map = HttpRequestUtils.parseQueryString(contentBody);
+                User user = new User(map.get("userId"), map.get("password"), map.get("name"), map.get("email"));
+                log.debug("User : {} ", user);
 
-            File cur = new File("C:/Users/Admin/IdeaProjects/JavaEE_Study/NextStep/src/main");
-            byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
+                /* 요구사항 4 - 302 Status Code 적용
+                 *  회원가입 완료 후 /index.html 로 리디렉션 */
+                DataOutputStream dos = new DataOutputStream(out);
+                response302Header(dos, "/index.html");
+            } else {
+                byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
 
-            DataOutputStream dos = new DataOutputStream(out);
-            // byte[] body = "Hello World".getBytes();
-            response200Header(dos, body.length);
-            responseBody(dos, body);
+                DataOutputStream dos = new DataOutputStream(out);
+                // byte[] body = "Hello World".getBytes();
+                response200Header(dos, body.length);
+                responseBody(dos, body);
+            }
         } catch (IOException e) {
             log.error(e.getMessage());
         }
     }
 
+    /* 302 응답 헤더 */
+    private void response302Header(DataOutputStream dos, String url) {
+        try {
+            dos.writeBytes("HTTP/1.1 302 Redirect \r\n");
+            dos.writeBytes("Location: " + url + "\r\n");
+            dos.writeBytes("\r\n");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+    
     private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
         try {
             dos.writeBytes("HTTP/1.1 200 OK \r\n");

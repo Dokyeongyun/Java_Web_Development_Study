@@ -1,5 +1,6 @@
 package webserver;
 
+import db.DataBase;
 import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,10 +74,38 @@ public class RequestHandler extends Thread {
                 User user = new User(map.get("userId"), map.get("password"), map.get("name"), map.get("email"));
                 log.debug("User : {} ", user);
 
+                /* 요구사항 5 - 로그인하기
+                *  회원가입 후 DB에 User 데이터 저장
+                *  로그인 시 HTTP 응답헤더에 Set-Cookie 로 성공여부 전달 */
+                DataBase.addUser(user);
+
                 /* 요구사항 4 - 302 Status Code 적용
                  *  회원가입 완료 후 /index.html 로 리디렉션 */
                 DataOutputStream dos = new DataOutputStream(out);
                 response302Header(dos, "/index.html");
+            } else if(url.equals("/user/login")) {
+                /* 요구사항 5 - 로그인하기
+                 *  회원가입 후 DB에 User 데이터 저장
+                 *  로그인 시 HTTP 응답헤더에 Set-Cookie 로 성공여부 전달 */
+
+                String contentBody = IOUtils.readData(br, contentLength);
+                Map<String, String> map = HttpRequestUtils.parseQueryString(contentBody);
+                User loginUser = DataBase.findUserById(map.get("userId"));
+
+                if(loginUser == null){
+                    // ID 존재하지 않음
+                    responseLoginFailed(out);
+                    return;
+                }
+
+                if(loginUser.getPassword().equals(map.get("password"))){
+                    // 로그인 성공 -> 302 응답헤더
+                    DataOutputStream dos = new DataOutputStream(out);
+                    response302HeaderSetCookie(dos);
+                }else{
+                    // 로그인 실패
+                    responseLoginFailed(out);
+                }
             } else {
                 byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
 
@@ -86,6 +115,27 @@ public class RequestHandler extends Thread {
                 responseBody(dos, body);
             }
         } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    /* 로그인 실패시 login_failed.html로 이동*/
+    private void responseLoginFailed(OutputStream out) throws IOException {
+        byte[] body = Files.readAllBytes(new File(cur + "/webapp/user/login_failed.html").toPath());
+
+        DataOutputStream dos = new DataOutputStream(out);
+        response200Header(dos, body.length);
+        responseBody(dos, body);
+    }
+
+    /* 로그인 성공시 Set-Cookie 설정 및 /index.html로 리디렉션 */
+    private void response302HeaderSetCookie(DataOutputStream dos) {
+        try {
+            dos.writeBytes("HTTP/1.1 302 Redirect \r\n");
+            dos.writeBytes("Location: " + "/index.html" + "\r\n");
+            dos.writeBytes("Set-Cookie: logined=true \r\n");
+            dos.writeBytes("\r\n");
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
@@ -100,7 +150,7 @@ public class RequestHandler extends Thread {
             log.error(e.getMessage());
         }
     }
-    
+
     private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
         try {
             dos.writeBytes("HTTP/1.1 200 OK \r\n");

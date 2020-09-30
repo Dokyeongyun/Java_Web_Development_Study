@@ -10,6 +10,7 @@ import util.IOUtils;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.util.Collection;
 import java.util.Map;
 
 // 스레드를 상속함,
@@ -59,12 +60,20 @@ public class RequestHandler extends Thread {
 
             // Content-Length 헤더를 찾는 것이 중요!
             int contentLength = 0;
+            boolean isLogined = false;
             while (!line.equals("")) {
                 line = br.readLine();
 
                 if (line.startsWith("Content-Length")) {
                     String[] split = line.split(":");
                     contentLength = Integer.parseInt(split[1].trim());
+                }
+                if(line.startsWith("Cookie")){
+                    String[] split = line.split(":");
+                    Map<String, String> cookies = HttpRequestUtils.parseCookies(split[1].trim());
+                    if(Boolean.parseBoolean(cookies.get("logined"))){
+                        isLogined = true;
+                    }
                 }
             }
 
@@ -106,6 +115,40 @@ public class RequestHandler extends Thread {
                     // 로그인 실패
                     responseLoginFailed(out);
                 }
+            } else if(url.equals("/user/list")){
+                /* 요구사항 6 - 사용자 목록 출력
+                *  접근한 사용자가 로그인 상태라면 사용자 목록을 출력
+                *  로그인하지 않은 상태라면 로그인 페이지(login.html)로 이동 */
+
+                if(isLogined){
+                    Collection<User> users = DataBase.findAll();
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("<table border='1'>");
+                    sb.append("  <tr class=\"success\">\n" +
+                            "    <td>ID</td>\n" +
+                            "    <td>이름</td>\n" +
+                            "    <td>이메일</td>\n" +
+                            "  </tr>");
+
+                    for (User user : users) {
+                        sb.append("<tr>");
+                        sb.append("<td>" + user.getUserId() + "</td>");
+                        sb.append("<td>" + user.getName() + "</td>");
+                        sb.append("<td>" + user.getEmail() + "</td>");
+                        sb.append("</tr>");
+                    }
+
+                    sb.append("</table>");
+                    byte[] body = sb.toString().getBytes();
+                    DataOutputStream dos = new DataOutputStream(out);
+                    response200Header(dos, body.length);
+                    responseBody(dos, body);
+                }else{
+                    DataOutputStream dos = new DataOutputStream(out);
+                    response302Header(dos, "/user/login.html");
+                    return;
+                }
+
             } else {
                 byte[] body = Files.readAllBytes(new File(cur + "/webapp" + url).toPath());
 

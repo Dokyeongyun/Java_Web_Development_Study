@@ -33,7 +33,6 @@ public class HttpRequest {
         /* HTTP 헤더를 읽어 Map에 저장 */
         while (!line.equals("")) {
             line = br.readLine();
-            System.out.println(line);
             headers.add(line);
         }
 

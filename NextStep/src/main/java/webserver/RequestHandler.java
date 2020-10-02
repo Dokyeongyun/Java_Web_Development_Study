@@ -33,6 +33,7 @@ public class RequestHandler extends Thread {
             /* 요구사항 1 - index.html 응답하기 */
             HttpRequest httpRequest = new HttpRequest(in);
             String url = httpRequest.getURL();
+            System.out.println(httpRequest.getHeaders("Connection"));
 
             if (url.equals("/user/create")) {
                 User user = new User(httpRequest.getRequestParams("userId"),

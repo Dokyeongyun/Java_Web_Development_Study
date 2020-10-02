@@ -8,7 +8,7 @@ public class HttpHeaders {
 
     void add(String line){
         String[] headerSplit = line.split(":");
-        if(headerSplit.length==2){
+        if(headerSplit.length>=2){
             headers.put(headerSplit[0], headerSplit[1].trim());
         }
     }
@@ -21,7 +21,7 @@ public class HttpHeaders {
     }
 
     public String getHeader(String field){
-        return headers.get("field");
+        return headers.get(field);
     }
 
 }
